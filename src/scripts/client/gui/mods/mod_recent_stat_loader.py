@@ -66,7 +66,7 @@ class ModRecentStat:
         try:
             for _vehicleID, vehicleData in vehicles.items():
                 if vehicleData["name"] != vehicleData["fakeName"]:
-                    self._isAnonymousHost = True
+                    self._isAnonymousHost = False
         except BaseException:
             logError("Can't check if host is anonymous.", traceback.format_exc())
 
@@ -127,10 +127,10 @@ class ModRecentStat:
     def formatPlayerName(self, accountDBID, playerName):
         # type: (int, str) -> str
         if self._isAnonymousHost:
-            return "? %s" % playerName  # TODO move to config_format
+            return "Fake %s" % playerName  # TODO move to config_format
 
         if isPlayerFake(accountDBID):
-            return "? %s" % playerName  # TODO move to config_format
+            return "Fake %s" % playerName  # TODO move to config_format
 
         playerInfo = self._playerIdToData.get(accountDBID, None)
         if playerInfo is not None:
